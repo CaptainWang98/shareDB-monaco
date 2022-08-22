@@ -1,5 +1,9 @@
 /* eslint-env browser */
 import * as monaco from 'monaco-editor'
+import ShareDBMonaco from "sharedb-monaco";
+import sharedb from 'sharedb/lib/client';
+import ReconnectingWebSocket from 'reconnecting-websocket';
+
 
 // @ts-ignore
 window.MonacoEnvironment = {
@@ -21,15 +25,38 @@ window.MonacoEnvironment = {
 }
 
 window.addEventListener('load', () => {
-  const editor = monaco.editor.create(/** @type {HTMLElement} */ (document.getElementById('monaco-editor')), {
-    value: 'Hi!',
-    language: 'javascript',
-    theme: 'vs-dark'
-  })
+  console.log('loadddd!!!', window.location.host);
+  const socket = new ReconnectingWebSocket('ws://localhost:8081');
+  const connection = new sharedb.Connection(socket);
 
-  editor.onDidChangeModelContent(e => {
-    console.log('onDidChangeModelContent e', e);
-  })
+  // window.disconnect = function() {
+  //   connection.close();
+  // };
+  // window.connect = function() {
+  //   var socket = new ReconnectingWebSocket('ws://' + window.location.host);
+  //   connection.bindToSocket(socket);
+  // };
 
-  window.example = { editor }
+  var doc = connection.get('examples', 'willxywang');
+
+  doc.subscribe(function(err) {
+    if (err) throw err;
+
+    const editor = monaco.editor.create(/** @type {HTMLElement} */ (document.getElementById('monaco-editor')), {
+      language: 'javascript',
+      theme: 'vs-dark'
+    })
+
+    const binding = new ShareDBMonaco({
+      id: 'willxywang',
+      namespace: 'examples',
+      sharePath: '',
+      connection: connection
+    });
+    const model = binding.add(editor);
+
+    editor.setModel(model);
+
+    window.example = { editor };
+  });
 })

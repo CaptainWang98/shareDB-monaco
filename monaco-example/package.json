@@ -5,19 +5,25 @@
   "main": "index.js",
   "scripts": {
     "dist": "webpack --mode=production",
-    "start": "webpack-dev-server --open-page monaco-example/monaco.html"
+    "start": "webpack-dev-server --open-page monaco-example/monaco.html",
+    "server": "node server.js"
   },
   "author": "Kevin Jahns <kevin.jahns@pm.me>",
   "license": "UNLICENSE",
   "dependencies": {
+    "@teamwork/websocket-json-stream": "^2.0.0",
     "css-loader": "^2.1.1",
+    "express": "^4.17.1",
     "monaco-editor": "^0.21.2",
+    "reconnecting-websocket": "^4.2.0",
     "serve": "^11.3.2",
-    "sharedb": "^3.1.0",
+    "sharedb": "^1.0.0-beta",
+    "sharedb-monaco": "^2.0.0",
     "style-loader": "^0.23.1",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-server": "^3.11.2",
+    "ws": "^7.2.0"
   },
   "devDependencies": {
     "file-loader": "^6.2.0"
