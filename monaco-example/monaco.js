@@ -37,26 +37,29 @@ window.addEventListener('load', () => {
   //   connection.bindToSocket(socket);
   // };
 
-  var doc = connection.get('examples', 'willxywang');
+  // var doc = connection.get('examples', 'willxywang');
 
-  doc.subscribe(function(err) {
-    if (err) throw err;
+  // doc.subscribe(function(err) {
+    // if (err) throw err;
 
     const editor = monaco.editor.create(/** @type {HTMLElement} */ (document.getElementById('monaco-editor')), {
+      value: 'WIIIIIIILLLLLLLDLASLDALWD',
       language: 'javascript',
       theme: 'vs-dark'
     })
+    console.log('editor', editor.getModel().getValue());
 
     const binding = new ShareDBMonaco({
       id: 'willxywang',
       namespace: 'examples',
-      sharePath: '',
-      connection: connection
+      sharePath: 'text',
+      connection: connection,
+      model: editor.getModel()
     });
     const model = binding.add(editor);
 
-    editor.setModel(model);
+    // editor.setModel(model);
 
-    window.example = { editor };
+    window.example = { editor, model };
   });
-})
+// })
