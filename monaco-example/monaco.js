@@ -1,5 +1,5 @@
 /* eslint-env browser */
-import * as monaco from 'monaco-editor'
+import * as monaco from 'monaco-editor';
 import ShareDBMonaco from "sharedb-monaco";
 import sharedb from 'sharedb/lib/client';
 import ReconnectingWebSocket from 'reconnecting-websocket';
